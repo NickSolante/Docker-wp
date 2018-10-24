@@ -1,0 +1,28 @@
+version: '3.1'
+
+services:
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  db:
+    image: mysql:5.6
+    volumes:
+      - wptut:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: nanomech
+
+  wordpress:
+     build: ./wordpress
+     volumes:
+       - ./plugins:/var/www/html/wp-content/plugins
+     ports:
+       - 80:80 
+
+
+volumes:
+  wptut:
